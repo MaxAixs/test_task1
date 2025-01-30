@@ -1,15 +1,17 @@
 package handler
 
 import (
+	"Test_task1/onlineStore/service"
 	"github.com/gorilla/mux"
 	"net/http"
 )
 
 type Handler struct {
+	services *service.Service
 }
 
-func NewHandler(h Handler) *Handler {
-	return &Handler{}
+func NewHandler(services *service.Service) *Handler {
+	return &Handler{services: services}
 }
 
 func (h *Handler) MapRoutes() http.Handler {
