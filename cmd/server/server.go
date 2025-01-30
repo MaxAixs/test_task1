@@ -1,6 +1,7 @@
 package server
 
 import (
+	"context"
 	"net/http"
 	"time"
 )
@@ -26,4 +27,8 @@ func (s *Server) RunServer(cfg SrvCfg, handler http.Handler) error {
 	}
 
 	return s.httpServer.ListenAndServe()
+}
+
+func (s *Server) Shutdown(ctx context.Context) error {
+	return s.httpServer.Shutdown(context.Background())
 }
