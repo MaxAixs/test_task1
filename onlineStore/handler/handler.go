@@ -22,11 +22,11 @@ func (h *Handler) MapRoutes() http.Handler {
 
 	seller := api.PathPrefix("/seller").Subrouter()
 	h.setupRoutes(seller, map[string]http.HandlerFunc{
-		"create":  h.CreateSeller,
-		"getAll":  h.GetAllSellers,
-		"getById": h.GetSellerById,
-		"update":  h.UpdateSeller,
-		"delete":  h.DeleteSeller,
+		"create":     h.CreateSeller,
+		"getAll":     h.GetAllSellers,
+		"getById":    h.GetSellerById,
+		"updateById": h.UpdateSeller,
+		"deleteById": h.DeleteSeller,
 	})
 
 	return r
