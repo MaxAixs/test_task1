@@ -9,7 +9,7 @@ services:
       db:
         condition: service_healthy
     volumes:
-      - ./Test_task1/internal/config:/root/internal/config
+      - ./Test_task1/internal/config:/root/internal/config.yml
       - ./.env:/root/.env
     networks:
       - backend
