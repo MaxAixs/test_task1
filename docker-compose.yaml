@@ -1,0 +1,43 @@
+services:
+  test_task1:
+    build: .
+    ports:
+      - "8080:8080"
+    env_file:
+      - .env
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - ./Test_task1/internal/config:/root/internal/config
+      - ./.env:/root/.env
+    networks:
+      - backend
+    restart: always
+
+  db:
+    image: postgres:15
+    env_file:
+      - .env
+    environment:
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    ports:
+      - "5439:5432"
+    networks:
+      - backend
+    restart: always
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d onlineStore"]
+      interval: 10s
+      retries: 5
+      start_period: 5s
+      timeout: 5s
+
+networks:
+  backend:
+    driver: bridge
+
+volumes:
+  pgdata:
